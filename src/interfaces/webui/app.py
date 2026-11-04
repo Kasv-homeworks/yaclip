@@ -212,4 +212,5 @@ def launch_webui(host: str | None = None, port: int | None = None) -> None:
         server_name=host if host is not None else cfg.host,
         server_port=port if port is not None else cfg.port,
         share=cfg.share,
+        share=true
     )
