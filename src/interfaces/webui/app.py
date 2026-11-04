@@ -175,7 +175,7 @@ def build_ui() -> gr.Blocks:
         # clips_state IS the panel's data source (@gr.render keys off it), so its
         # value tells us exactly what the panel shows: the loading sentinel while
         # "Loading clips…" is on screen, a list once panels render. Disable every
-        # other tab while the sentinel is set; re-enable when the clips list lands.
+        # other tab while the sentinel is set; re-enables when the clips list lands.
         # Empty list (no clips found) is a normal loaded state -> tabs enabled.
         _CM_LOCK_TABS = [*_OTHER_TABS, review_tab]
 
@@ -193,14 +193,14 @@ def build_ui() -> gr.Blocks:
 
         app.load(None, js=_TRAKTEER_LOAD_JS)
 
-        def _startup_connection_check() -> None:
+        def _startup_content_check() -> None:
             for r in AIUtils.validate_cloud_connections(load_config()):
                 if not r["ok"]:
                     gr.Warning(
                         f"Cloud {r['component']} ({r['provider']}): {r['error']}"
                     )
 
-        app.load(fn=_startup_connection_check, inputs=[], outputs=[])
+        app.load(fn=_startup_content_check, inputs=[], outputs=[])
 
     return app
 
@@ -211,6 +211,6 @@ def launch_webui(host: str | None = None, port: int | None = None) -> None:
     ui.queue().launch(
         server_name=host if host is not None else cfg.host,
         server_port=port if port is not None else cfg.port,
-        share=cfg.share,
-        share=true
-    )
+        share=True
+        )
+    
